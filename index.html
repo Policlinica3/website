@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Policlinica 3</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f7f8fa;
+      color: #222;
+    }
+
+    header {
+      background: #1976d2;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1em 2em;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+    }
+
+    .logo img {
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .logo img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 16px rgba(25, 118, 210, 0.3);
+    }
+
+    .logo-title {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-title h1 {
+      margin: 0;
+      font-size: 1.4em;
+    }
+
+    .logo-title span {
+      font-size: 0.9em;
+      font-weight: 300;
+    }
+
+    nav {
+      display: flex;
+      gap: 2em;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      cursor: pointer;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -3px;
+      left: 0;
+      background-color: #fff;
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4em 1em;
+      background: linear-gradient(to right, #e3f2fd, #ffffff);
+    }
+
+    .hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.2em;
+      color: #1976d2;
+      margin-bottom: 0.5em;
+    }
+
+    .hero p {
+      font-size: 1.2em;
+      max-width: 600px;
+      margin: 0 auto 2em;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: #1976d2;
+      color: white;
+      padding: 0.8em 1.5em;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: default;
+      user-select: none;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 2em auto;
+      padding: 0 1em;
+    }
+
+    .locations {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2em;
+      justify-content: center;
+    }
+
+    .location-card {
+      background: white;
+      padding: 1em;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(25, 118, 210, 0.1);
+      flex: 1 1 300px;
+      max-width: 350px;
+      text-align: center;
+    }
+
+    .location-card img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 1em;
+    }
+
+    .detail-button {
+      display: inline-block;
+      margin-top: 1em;
+      background: #1976d2;
+      color: white;
+      padding: 0.5em 1em;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    .contact-section {
+      background: white;
+      border-radius: 16px;
+      padding: 2em;
+      margin: 3em 0;
+      box-shadow: 0 2px 12px rgba(25, 118, 210, 0.08);
+    }
+
+    .contact-section h2 {
+      margin-top: 0;
+      color: #1976d2;
+    }
+
+    .phone-entry {
+      margin: 1em 0;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 1.5em;
+      font-size: 0.9em;
+      background: #e3eafc;
+      color: #333;
+    }
+
+    /* === SERVICII SECTION REVISED === */
+    #servicii {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.5s ease, opacity 0.3s ease;
+      background: #e3f2fd;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin: 2em auto;
+      padding: 2em 1em;
+      text-align: center;
+      max-width: 800px;
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    #servicii.show {
+      animation: fadeInUp 0.6s ease forwards;
+      max-height: 1000px;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    #servicii h2 {
+      font-size: 1.8em;
+      color: #1976d2;
+      margin-bottom: 1em;
+    }
+
+    #servicii ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #servicii li {
+      margin: 0.5em 0;
+      font-size: 1.1em;
+      font-weight: 500;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
+      .hero h1 {
+        font-size: 1.6em;
+      }
+
+      .hero p {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="logo.jpeg" alt="Logo" />
+      <div class="logo-title">
+        <h1>Policlinica 3</h1>
+        <span>Luni - Vineri</span>
+        <span>Fă-ți o programare</span>
+      </div>
+    </div>
+    <nav>
+      <a href="#">Acasă</a>
+      <a id="toggle-servicii">Servicii</a>
+      <a href="#contact">Contactează-ne</a>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <h1>Bine ați venit la Policlinica 3</h1>
+    <p>Servicii medicale complete, personal profesionist, dotări moderne. Sănătatea ta e prioritatea noastră.</p>
+    <span class="cta-button">Programează-te acum la una din cele 2 locații</span>
+  </section>
+
+  <!-- LISTA SERVICII -->
+  <section id="servicii">
+    <h2>Serviciile Noastre</h2>
+    <ul>
+      <li>Consult Neurochirurgie</li>
+      <li>Reumatologie</li>
+      <li>Recuperare Medicală</li>
+      <li>Chirurgie Spinală</li>
+      <li>Psihiatrie Pediatrică</li>
+      <li>Kinetoterapie</li>
+      <li>Fizioterapie</li>
+      <li>Consultații Neurologie</li>
+    </ul>
+  </section>
+
+  <main>
+    <section class="locations">
+      <div class="location-card">
+        <img src="DSC09873.jpg" alt="Locația 1" />
+        <h2>Locația 1</h2>
+        <p>Neurochirurgie, reumatologie, recuperare, chirurgie spinală, neurologie, psihiatrie pediatrică.</p>
+        <a href="locatia1.html" class="detail-button">Vezi detalii</a>
+      </div>
+      <div class="location-card">
+        <img src="DSC09834-HDR.jpg" alt="Locația 2" />
+        <h2>Locația 2</h2>
+        <p>Fizioterapie și kinetoterapie într-un spațiu modern dedicat recuperării.</p>
+        <a href="locatia2.html" class="detail-button">Vezi detalii</a>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <h2>Contactează-ne</h2>
+      <p>Nu ezita să ne contactezi telefonic pentru programări sau informații suplimentare:</p>
+      <div class="phone-entry">
+        <strong>Locația 1:</strong> 0735 083 519
+      </div>
+      <div class="phone-entry">
+        <strong>Locația 2:</strong> 0751 950 027
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    &copy; 2025 Policlinica 3. Toate drepturile rezervate.
+  </footer>
+
+  <script>
+    const toggleButton = document.getElementById('toggle-servicii');
+    const serviciiSection = document.getElementById('servicii');
+
+    toggleButton.addEventListener('click', () => {
+      serviciiSection.classList.toggle('show');
+    });
+  </script>
+</body>
+</html>
